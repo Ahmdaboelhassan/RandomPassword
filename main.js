@@ -48,7 +48,7 @@ document.getElementById("btn").onclick = () => {
 
 copy.addEventListener("click", () => {
   navigator.clipboard.writeText(docPassword.innerHTML);
-  docPassword.innerHTML = "Text Coppied Successfully";
+  docPassword.innerHTML = "Coppied Successfully";
 });
 
 document.addEventListener("keypress", (e) => {
