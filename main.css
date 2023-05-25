@@ -1,3 +1,7 @@
+:root {
+  --main-color: #009688;
+  --disable-color: #0096876e;
+}
 * {
   box-sizing: border-box;
 }
@@ -10,7 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 60%;
-  margin: 20vh auto;
+  margin: 10vh auto;
   text-align: center;
 }
 @media (max-width: 763px) {
@@ -20,17 +24,50 @@ body {
 }
 .container h3 {
   background: white;
-  padding: 50px;
-  font-size: 32px;
-  color: #ff5722;
+  padding: 70px 30px;
+  font-size: 40px;
+  color: var(--main-color);
   position: relative;
   word-break: break-all;
   border-radius: 6px;
+  margin: 0;
 }
+.container .password-control {
+  margin: 3vh auto;
+  width: 100%;
+  position: relative;
+}
+.container .password-control span {
+  position: absolute;
+  width: 0;
+  height: 3px;
+  left: 0;
+  top: 0;
+  transition: 0.3s;
+}
+
+.container .copy {
+  background-color: var(--main-color);
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #eee;
+  width: 25%;
+  border-radius: 6px;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
 @media (max-width: 763px) {
   .container h3 {
-    padding: 40px;
-    font-size: 23px;
+    padding: 40px 15px;
+    font-size: 25px;
+  }
+  .container .copy {
+    font-size: 16px;
   }
 }
 h3 button {
@@ -38,7 +75,7 @@ h3 button {
 }
 .container #btn {
   padding: 20px 0;
-  background: #ff5722;
+  background: var(--main-color);
   border: none;
   color: white;
   font-size: 30px;
@@ -47,11 +84,7 @@ h3 button {
 }
 
 .check form {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   padding: 20px 10px;
-  flex-wrap: wrap;
 }
 
 .check form div {
@@ -67,19 +100,72 @@ h3 button {
   }
 }
 .check form input[type="checkbox"] {
-  width: 25px;
-  height: 25px;
-  margin: 5px 0;
-}
-.check form label {
-  font-size: 16px;
-  color: #f44336;
-  font-weight: 700;
-  margin-bottom: 10px;
+  display: none;
 }
 
-#count {
+.check form label {
+  font-size: 18px;
+  color: var(--main-color);
+  font-weight: 700;
+  margin-bottom: 15px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.check form label::before {
+  content: "";
+  position: absolute;
+  background-color: rgb(255, 255, 255);
   width: 50px;
   height: 25px;
-  margin-bottom: 5px;
+  top: 0px;
+  right: 0px;
+  border-radius: 15px;
+}
+.check form label .slider {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: var(--disable-color);
+  border-radius: 50%;
+  top: 0;
+  transition: 0.3s;
+  right: 25px;
+  cursor: pointer;
+}
+.check form label input[type="checkbox"]:checked + .slider {
+  right: 0;
+  background-color: var(--main-color);
+}
+
+.countdiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+.countdiv div {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  padding: 7px;
+  background-color: var(--main-color);
+  border-radius: 6px;
+  color: #eee;
+  font-weight: bold;
+  align-items: center;
+}
+#count {
+  width: 35%;
+  padding: 4px 0 4px 20px;
+  font-size: 18px;
+  color: var(--main-color);
+  background-color: #eee;
+  font-weight: bold;
+  border: none;
 }

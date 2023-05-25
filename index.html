@@ -4,37 +4,67 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Genrator</title>
+    <title>Password Genrator</title>
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="all.min.css" />
+    <link rel="shortcut icon" href="./logo Rounded.png" type="image/x-icon" />
   </head>
   <body>
     <div class="container">
-      <h3 id="password">Welcome To The Password Genrator</h3>
-      <button id="btn">Genrate</button>
+      <div class="password-control">
+        <h3 id="password">Password Genrator</h3>
+        <span id="strength"></span>
+      </div>
+      <div class="countdiv">
+        <div>
+          Count
+          <input
+            type="number"
+            id="count"
+            value="10"
+            min="6"
+            max="200"
+            step="1"
+          />
+        </div>
+        <span class="copy" id="copy"
+          >Copy<i class="fa-regular fa-clipboard fa-flip"></i
+        ></span>
+      </div>
       <div class="check">
         <form action="">
           <div>
-            <input type="checkbox" name="type" id="Numbers" value="Numbers" />
-            <label for="Numbers">Numbers</label>
+            <label for="Numbers">
+              Numbers
+              <input type="checkbox" name="type" id="Numbers" value="Numbers" />
+              <span class="slider"></span>
+            </label>
           </div>
           <div>
-            <input type="checkbox" name="type" id="letter" value="letter" />
-            <label for="letter">Small Letter</label>
+            <label for="letter">
+              Small Letter
+              <input type="checkbox" name="type" id="letter" value="letter" />
+              <span class="slider"></span>
+            </label>
           </div>
           <div>
-            <input type="checkbox" name="type" id="capsm" value="capsm" />
-            <label for="capsm">Capital Letter</label>
+            <label for="capsm">
+              Capital Letter
+              <input type="checkbox" name="type" id="capsm" value="capsm" />
+              <span class="slider"></span>
+            </label>
           </div>
           <div>
-            <input type="checkbox" name="type" id="Symbol" value="Symbol" />
-            <label for="Symbol">Symbol</label>
-          </div>
-          <div>
-            <input type="number" id="count" value="25" min="6" max="40" />
-            <label for="count">Count</label>
+            <label for="Symbol">
+              Symbol
+              <input type="checkbox" name="type" id="Symbol" value="Symbol" />
+              <span class="slider"></span>
+            </label>
           </div>
         </form>
       </div>
+
+      <button id="btn">Genrate</button>
     </div>
     <script src="main.js"></script>
   </body>
