@@ -1,11 +1,16 @@
-// Service Worker for Text Encryptor PWA
+// Service Worker for Encrypto PWA
 const APP_VERSION = "1.0.0";
-const CACHE_NAME = `text-encryptor-v${APP_VERSION}`;
+const REPO_NAME = "RandomPassword";
+const CACHE_NAME = `encrypto-v${APP_VERSION}`;
 const OLD_CACHE_NAMES = ["text-encryptor-v1.0.0"]; // List old cache names for cleanup
 
 // Get base path for GitHub Pages and standard deployments
 const getBasePath = () => {
   const pathname = self.location.pathname;
+  // Check if running on GitHub Pages (has /RandomPassword/ in path)
+  if (pathname.includes(`/${REPO_NAME}/`)) {
+    return `/${REPO_NAME}/`;
+  }
   const lastSlashIndex = pathname.lastIndexOf("/");
   return pathname.substring(0, lastSlashIndex + 1);
 };
