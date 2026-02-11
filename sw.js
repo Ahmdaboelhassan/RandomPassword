@@ -12,7 +12,16 @@ const getBasePath = () => {
 
 const BASE_PATH = getBasePath();
 
-const urlsToCache = [];
+const urlsToCache = [
+  BASE_PATH,
+  BASE_PATH + "index.html",
+  BASE_PATH + "css/styles.css",
+  BASE_PATH + "js/crypto.js",
+  BASE_PATH + "js/password-generator.js",
+  BASE_PATH + "js/app.js",
+  BASE_PATH + "PWA/pwa.js",
+  BASE_PATH + "PWA/manifest.json",
+];
 
 // Install event - cache all static assets
 self.addEventListener("install", (event) => {
