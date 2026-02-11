@@ -1,5 +1,5 @@
 // Crypto.js - Encryption and Decryption Algorithms
-
+const defaultKey = "b9e79274-474a-4e8d-a617-3c3e125d9a1d";
 class CryptoEngine {
   constructor() {
     this.textEncoder = new TextEncoder();
@@ -190,13 +190,15 @@ class CryptoEngine {
 
   // ==================== Main Encrypt/Decrypt Functions ====================
   async encrypt(text, method, key = "", shift = 3) {
+    text = text.trim();
+
     if (!text) {
       throw new Error("Please enter text to encrypt");
     }
 
     switch (method) {
       case "aes":
-        if (!key) key = "b9e79274-474a-4e8d-a617-3c3e125d9a1d";
+        if (!key) key = defaultKey;
         return await this.aesEncrypt(text, key);
 
       case "caesar":
@@ -215,13 +217,15 @@ class CryptoEngine {
   }
 
   async decrypt(text, method, key = "", shift = 3) {
+    text = text.trim();
+
     if (!text) {
       throw new Error("Please enter text to decrypt");
     }
 
     switch (method) {
       case "aes":
-        if (!key) throw new Error("Password is required for AES decryption");
+        if (!key) key = defaultKey;
         return await this.aesDecrypt(text, key);
 
       case "caesar":
