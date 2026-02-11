@@ -1,71 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Password Genrator</title>
-    <link rel="stylesheet" href="css/all.min.css" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="shortcut icon" href="./logo Rounded.png" type="image/x-icon" />
+    <title>Text Encryptor - Secure Your Messages</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- PWA Meta Tags -->
+    <meta
+      name="description"
+      content="Encrypt and decrypt your messages securely with multiple encryption methods and built-in password generator" />
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Encryptor" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Icons -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="Imgs/logo Rounded.png" />
   </head>
   <body>
     <div class="container">
-      <div class="password-control">
-        <h3 id="password">Password Genrator</h3>
-        <span id="strength"></span>
-      </div>
-      <div class="countdiv">
-        <div>
-          Count
-          <input
-            type="number"
-            id="count"
-            value="10"
-            min="6"
-            max="200"
-            step="1"
-          />
+      <header>
+        <h1>🔐 Text Encryptor</h1>
+      </header>
+
+      <div class="encryption-methods">
+        <h3>Encryption Method:</h3>
+        <div class="method-buttons">
+          <button class="method-btn active" data-method="aes">AES-256</button>
+          <button class="method-btn" data-method="caesar">Caesar Cipher</button>
+          <button class="method-btn" data-method="base64">Base64</button>
+          <button class="method-btn" data-method="xor">XOR Cipher</button>
         </div>
-        <span class="copy" id="copy"
-          >Copy<i class="fa-regular fa-clipboard fa-flip"></i
-        ></span>
-      </div>
-      <div class="check">
-        <form action="">
-          <div>
-            <label for="Numbers">
-              Numbers
-              <input type="checkbox" name="type" id="Numbers" value="Numbers" />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div>
-            <label for="letter">
-              Small Letter
-              <input type="checkbox" name="type" id="letter" value="letter" />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div>
-            <label for="capsm">
-              Capital Letter
-              <input type="checkbox" name="type" id="capsm" value="capsm" />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div>
-            <label for="Symbol">
-              Symbol
-              <input type="checkbox" name="type" id="Symbol" value="Symbol" />
-              <span class="slider"></span>
-            </label>
-          </div>
-        </form>
       </div>
 
-      <button id="btn">Genrate</button>
+      <div class="main-content">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Input Text</h2>
+            <span class="char-count">0 characters</span>
+          </div>
+          <textarea
+            id="inputText"
+            placeholder="Enter your text here..."
+            rows="5"></textarea>
+
+          <div class="key-section" id="keySection">
+            <label for="encryptionKey">Encryption Key:</label>
+            <div class="key-input-wrapper">
+              <input
+                type="password"
+                id="encryptionKey"
+                placeholder="Enter a strong password" />
+              <button class="toggle-key" id="toggleKey">👁️</button>
+              <button
+                class="generate-password-btn"
+                id="generatePasswordBtn"
+                title="Generate Password">
+                🎲
+              </button>
+            </div>
+            <small class="key-hint">Use a strong, unique password</small>
+          </div>
+
+          <div class="shift-section" id="shiftSection" style="display: none">
+            <label for="shiftValue">Shift Value:</label>
+            <input type="number" id="shiftValue" value="3" min="1" max="25" />
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-primary" id="encryptBtn">🔒 Encrypt</button>
+            <button class="btn btn-secondary" id="decryptBtn">
+              🔓 Decrypt
+            </button>
+            <button class="btn btn-clear" id="clearBtn">🗑️ Clear All</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Output</h2>
+            <button class="btn-icon" id="copyBtn" title="Copy to clipboard">
+              📋 Copy
+            </button>
+          </div>
+          <textarea
+            id="outputText"
+            placeholder="Result will appear here..."
+            rows="5"
+            readonly></textarea>
+
+          <div class="output-info">
+            <div class="info-item">
+              <span class="label">Method:</span>
+              <span id="outputMethod">-</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Status:</span>
+              <span id="outputStatus">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="main.js"></script>
+
+    <!-- Password Generator Modal -->
+    <div class="modal" id="passwordModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>🎲 Password Generator</h2>
+          <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="password-strength">
+          <label>Password Strength:</label>
+          <div class="strength-bar">
+            <div class="strength-fill" id="strengthFill"></div>
+          </div>
+          <span class="strength-text" id="strengthText">-</span>
+        </div>
+        <div class="modal-body">
+          <div class="generated-password-display">
+            <input
+              type="text"
+              id="generatedPassword"
+              readonly
+              placeholder="Generated password will appear here..." />
+            <button
+              class="btn-icon"
+              id="copyGeneratedPassword"
+              title="Copy password">
+              📋
+            </button>
+          </div>
+
+          <div class="password-options">
+            <div class="option-group">
+              <label for="passwordLength"
+                >Password Length: <span id="lengthValue">16</span></label
+              >
+              <input
+                type="range"
+                id="passwordLength"
+                min="8"
+                max="1000"
+                value="16" />
+              <div class="range-labels">
+                <span>8</span>
+                <span>1000</span>
+              </div>
+            </div>
+
+            <div class="option-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="includeUppercase" checked />
+                <span class="checkbox-custom"></span>
+                <span>Uppercase Letters (A-Z)</span>
+              </label>
+            </div>
+
+            <div class="option-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="includeLowercase" checked />
+                <span class="checkbox-custom"></span>
+                <span>Lowercase Letters (a-z)</span>
+              </label>
+            </div>
+
+            <div class="option-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="includeNumbers" checked />
+                <span class="checkbox-custom"></span>
+                <span>Numbers (0-9)</span>
+              </label>
+            </div>
+
+            <div class="option-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="includeSpecial" checked />
+                <span class="checkbox-custom"></span>
+                <span>Special Characters (!@#$%^&*)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn btn-primary" id="generateBtn">
+              🎲 Generate Password
+            </button>
+            <button class="btn btn-secondary" id="usePasswordBtn">
+              ✓ Use This Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/password-generator.js"></script>
+    <script src="js/app.js"></script>
+    <script src="PWA/pwa.js"></script>
+    <script src="PWA/sw.js"></script>
   </body>
 </html>
