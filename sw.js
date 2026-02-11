@@ -12,16 +12,7 @@ const getBasePath = () => {
 
 const BASE_PATH = getBasePath();
 
-const urlsToCache = [
-  BASE_PATH,
-  BASE_PATH + "index.html",
-  BASE_PATH + "css/styles.css",
-  BASE_PATH + "js/crypto.js",
-  BASE_PATH + "js/password-generator.js",
-  BASE_PATH + "js/app.js",
-  BASE_PATH + "PWA/pwa.js",
-  BASE_PATH + "PWA/manifest.json",
-];
+const urlsToCache = [];
 
 // Install event - cache all static assets
 self.addEventListener("install", (event) => {
@@ -60,8 +51,11 @@ self.addEventListener("activate", (event) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
             // Delete all old cache versions
-            if (cacheName !== CACHE_NAME && 
-                (cacheName.startsWith("text-encryptor-") || OLD_CACHE_NAMES.includes(cacheName))) {
+            if (
+              cacheName !== CACHE_NAME &&
+              (cacheName.startsWith("text-encryptor-") ||
+                OLD_CACHE_NAMES.includes(cacheName))
+            ) {
               console.log("[Service Worker] Deleting old cache:", cacheName);
               return caches.delete(cacheName);
             }
