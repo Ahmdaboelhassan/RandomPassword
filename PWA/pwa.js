@@ -64,12 +64,8 @@ class PWAInstaller {
     }
 
     getServiceWorkerPath() {
-        // Get the current path
-        const path = window.location.pathname;
-        const base = path.substring(0, path.lastIndexOf('/') + 1);
-        
         // Return relative path to service worker
-        return base + 'sw.js';
+        return './PWA/sw.js';
     }
 
     setupInstallPrompt() {

@@ -1,12 +1,13 @@
 // Service Worker for Text Encryptor PWA
-const CACHE_NAME = "text-encryptor-v1.0.0";
+const APP_VERSION = "1.0.0";
+const CACHE_NAME = `text-encryptor-v${APP_VERSION}`;
+const OLD_CACHE_NAMES = ["text-encryptor-v1.0.0"]; // List old cache names for cleanup
 
-// Get base path for GitHub Pages support
+// Get base path for GitHub Pages and standard deployments
 const getBasePath = () => {
-  return self.location.pathname.substring(
-    0,
-    self.location.pathname.lastIndexOf("/") + 1,
-  );
+  const pathname = self.location.pathname;
+  const lastSlashIndex = pathname.lastIndexOf("/");
+  return pathname.substring(0, lastSlashIndex + 1);
 };
 
 const BASE_PATH = getBasePath();
@@ -58,7 +59,9 @@ self.addEventListener("activate", (event) => {
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME) {
+            // Delete all old cache versions
+            if (cacheName !== CACHE_NAME && 
+                (cacheName.startsWith("text-encryptor-") || OLD_CACHE_NAMES.includes(cacheName))) {
               console.log("[Service Worker] Deleting old cache:", cacheName);
               return caches.delete(cacheName);
             }
