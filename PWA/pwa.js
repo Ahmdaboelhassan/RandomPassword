@@ -27,8 +27,11 @@ class PWAInstaller {
     async registerServiceWorker() {
         if ('serviceWorker' in navigator) {
             try {
-                const registration = await navigator.serviceWorker.register('/sw.js', {
-                    scope: '/'
+                // Determine the correct path based on deployment
+                const swPath = this.getServiceWorkerPath();
+                
+                const registration = await navigator.serviceWorker.register(swPath, {
+                    scope: './'
                 });
                 
                 console.log('✅ Service Worker registered:', registration.scope);
@@ -58,6 +61,15 @@ class PWAInstaller {
         } else {
             console.log('⚠️ Service Workers not supported');
         }
+    }
+
+    getServiceWorkerPath() {
+        // Get the current path
+        const path = window.location.pathname;
+        const base = path.substring(0, path.lastIndexOf('/') + 1);
+        
+        // Return relative path to service worker
+        return base + 'sw.js';
     }
 
     setupInstallPrompt() {
