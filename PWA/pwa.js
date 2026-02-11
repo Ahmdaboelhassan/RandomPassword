@@ -31,7 +31,7 @@ class PWAInstaller {
         const swPath = "./sw.js";
 
         const registration = await navigator.serviceWorker.register(swPath, {
-          scope: "/RandomPassword/",
+          scope: "/Encrypto/",
         });
 
         console.log("✅ Service Worker registered:", registration.scope);

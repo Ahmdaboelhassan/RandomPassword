@@ -1,6 +1,6 @@
 // Service Worker for Encrypto PWA
 const APP_VERSION = "1.0.0";
-const REPO_NAME = "RandomPassword";
+const REPO_NAME = "Encrypto";
 const CACHE_NAME = `encrypto-v${APP_VERSION}`;
 const OLD_CACHE_NAMES = ["text-encryptor-v1.0.0"]; // List old cache names for cleanup
 
