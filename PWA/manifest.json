@@ -1,6 +1,6 @@
 {
-  "name": "Text Encryptor",
-  "short_name": "Encryptor",
+  "name": "Encrypto",
+  "short_name": "Encrypto",
   "description": "Encrypt and decrypt your messages securely with multiple encryption methods and built-in password generator",
   "start_url": "./?action=home",
   "scope": "./",
