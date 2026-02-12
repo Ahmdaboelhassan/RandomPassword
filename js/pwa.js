@@ -1,5 +1,4 @@
 // PWA Installation and Service Worker Registration
-
 class PWAInstaller {
   constructor() {
     this.deferredPrompt = null;
@@ -13,10 +12,6 @@ class PWAInstaller {
 
     // Handle install prompt
     this.setupInstallPrompt();
-
-    // Create install button
-    this.createInstallButton();
-
     // Check if already installed
     this.checkIfInstalled();
 
@@ -27,11 +22,22 @@ class PWAInstaller {
   async registerServiceWorker() {
     if ("serviceWorker" in navigator) {
       try {
-        // Use relative path to service worker
-        const swPath = "./sw.js";
+        // Detect the base path - same logic as sw.js
+        const getBasePath = () => {
+          const pathname = window.location.pathname;
+          // Check if running on GitHub Pages (has /Encrypto/ in path)
+          if (pathname.includes("/Encrypto/")) {
+            return "/Encrypto/";
+          }
+          const lastSlashIndex = pathname.lastIndexOf("/");
+          return pathname.substring(0, lastSlashIndex + 1);
+        };
+
+        const basePath = getBasePath();
+        const swPath = basePath + "sw.js";
 
         const registration = await navigator.serviceWorker.register(swPath, {
-          scope: "/Encrypto/",
+          scope: basePath,
         });
 
         console.log("✅ Service Worker registered:", registration.scope);

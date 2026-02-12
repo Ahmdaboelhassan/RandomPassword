@@ -2,12 +2,12 @@
 const APP_VERSION = "1.0.0";
 const REPO_NAME = "Encrypto";
 const CACHE_NAME = `encrypto-v${APP_VERSION}`;
-const OLD_CACHE_NAMES = ["text-encryptor-v1.0.0"]; // List old cache names for cleanup
+const OLD_CACHE_NAMES = ["encrypto-v1.0.0"]; // List old cache names for cleanup
 
 // Get base path for GitHub Pages and standard deployments
 const getBasePath = () => {
   const pathname = self.location.pathname;
-  // Check if running on GitHub Pages (has /RandomPassword/ in path)
+  // Check if running on GitHub Pages (has /Encrypto/ in path)
   if (pathname.includes(`/${REPO_NAME}/`)) {
     return `/${REPO_NAME}/`;
   }
@@ -24,8 +24,8 @@ const urlsToCache = [
   BASE_PATH + "js/crypto.js",
   BASE_PATH + "js/password-generator.js",
   BASE_PATH + "js/app.js",
-  BASE_PATH + "PWA/pwa.js",
-  BASE_PATH + "PWA/manifest.json",
+  BASE_PATH + "js/pwa.js",
+  BASE_PATH + "manifest.json",
 ];
 
 // Install event - cache all static assets
@@ -67,7 +67,7 @@ self.addEventListener("activate", (event) => {
             // Delete all old cache versions
             if (
               cacheName !== CACHE_NAME &&
-              (cacheName.startsWith("text-encryptor-") ||
+              (cacheName.startsWith("encrypto-") ||
                 OLD_CACHE_NAMES.includes(cacheName))
             ) {
               console.log("[Service Worker] Deleting old cache:", cacheName);
