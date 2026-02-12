@@ -145,7 +145,6 @@ class PWAInstaller {
     ) {
       console.log("✅ Running as installed PWA");
       this.hideInstallButton();
-      this.showInstalledBadge();
     }
   }
 
@@ -161,18 +160,6 @@ class PWAInstaller {
   hideInstallButton() {
     if (this.installButton) {
       this.installButton.style.display = "none";
-    }
-  }
-
-  showInstalledBadge() {
-    // Add installed badge to header if not exists
-    const header = document.querySelector("header");
-    if (header && !document.getElementById("installedBadge")) {
-      const badge = document.createElement("div");
-      badge.id = "installedBadge";
-      badge.className = "installed-badge";
-      badge.innerHTML = "✓ Installed";
-      header.appendChild(badge);
     }
   }
 
